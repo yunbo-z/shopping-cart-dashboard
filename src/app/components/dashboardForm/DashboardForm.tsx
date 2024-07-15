@@ -1,5 +1,5 @@
 import ImagePicker from '@/app/components/dashboardForm/ImagePicker';
-// import { ShareMeal } from '@/lib/actions';
+import { AddProductAction } from '@/lib/action';
 
 export default function DashboardForm() {
 
@@ -11,7 +11,7 @@ export default function DashboardForm() {
             </header>
             <main className="">
                 {/* this form take a Server Action */}
-                <form className="">
+                <form action={AddProductAction}>
                     <div className="flex flex-col gap-3">
                         <div>
                             <p className="flex items-end gap-2">
@@ -47,14 +47,14 @@ export default function DashboardForm() {
                             ></textarea>
                         </p>
                     </div>
-                    <ImagePicker label="Product Image" name="image" />
-                    <p className="">
-                        <button type="submit">Image</button>
-                    </p>
-                    <p>fsfsdf</p>
-                    <p>fsfsdf</p>
-                    <p>fsfsdf</p>
-                    <p>fsfsdf</p>
+                    <div className="flex gap-3 mt-4">
+                        <ImagePicker label="Image One" name="image_one" />
+                        <ImagePicker label="Image Two" name="image_two" />
+                        <ImagePicker label="Image Three" name="image_three" />
+                    </div>
+                    <div className="flex justify-center mt-4">
+                        <button className="bg-red-200 px-4 py-2" type="submit">Create a New Product</button>
+                    </div>
                 </form>
             </main>
         </>
