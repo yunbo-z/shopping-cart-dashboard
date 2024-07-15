@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useRef, useState } from 'react';
+import { ChangeEvent, FC, useRef, useState } from 'react';
 import Image from 'next/image';
 
 interface ImagePickerProps {
@@ -9,15 +9,17 @@ interface ImagePickerProps {
 }
 
 const ImagePicker: FC<ImagePickerProps> = ({ label, name }) => {
-    const [pickedImage, setPickedImage] = useState();
-    const imageInput = useRef();
+    const [pickedImage, setPickedImage] = useState<string | null>();
+    const imageInput = useRef<HTMLInputElement | null>(null);
 
     function handlePickClick() {
-        imageInput.current.click();//use useRef to access DOM elements
+        if (imageInput.current) {
+            imageInput.current.click();//use useRef to access DOM elements
+        }
     }
 
-    function handleImageChange(event) {
-        const file = event.target.files[0];
+    function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
+        const file = event.target.files ? event.target.files[0] : null;
 
         if (!file) {
             setPickedImage(null);
@@ -28,7 +30,8 @@ const ImagePicker: FC<ImagePickerProps> = ({ label, name }) => {
         const fileReader = new FileReader();
 
         fileReader.onload = () => {
-            setPickedImage(fileReader.result)
+            // Ensure the result is a string before setting the state
+            setPickedImage(fileReader.result as string)
         }
 
         fileReader.readAsDataURL(file)
@@ -49,6 +52,7 @@ const ImagePicker: FC<ImagePickerProps> = ({ label, name }) => {
                         />)}
                 </div>
                 <input
+                    className="hidden"
                     type="file"
                     id={name}
                     accept="image/png, image/jpeg"
@@ -58,6 +62,7 @@ const ImagePicker: FC<ImagePickerProps> = ({ label, name }) => {
                     required
                 />
                 <button
+                    className="bg-red-200 px-2 py-1 mt-4 cursor-pointer"
                     type="button"
                     onClick={handlePickClick}
                 >
