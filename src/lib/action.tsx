@@ -10,7 +10,7 @@ export async function AddProductAction (formData: { get: (arg0: string) => any }
         stock: formData.get('stock'),
         category: formData.get('category'),
         color: formData.get('color'),
-        discription: formData.get('discription'),
+        description: formData.get('description'),
         image_one: formData.get('image_one'),
         image_two: formData.get('image_two'),
         image_three: formData.get('image_three')

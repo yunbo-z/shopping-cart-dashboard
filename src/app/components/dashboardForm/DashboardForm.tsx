@@ -77,11 +77,11 @@ export default function DashboardForm() {
                             />
                         </p>
                         <p className="flex flex-col items-start gap-2">
-                            <label className="text-xl" htmlFor="discription">Discription: </label>
+                            <label className="text-xl" htmlFor="description">Description: </label>
                             <textarea
                                 className="block w-full rounded-md border-0 py-1 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300"
-                                id="discription"
-                                name="discription"
+                                id="description"
+                                name="description"
                                 required
                             ></textarea>
                         </p>
