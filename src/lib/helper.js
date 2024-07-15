@@ -40,12 +40,30 @@ export async function GetProductById(id) {
 export async function SaveNewProduct(AddNewProduct) {
     AddNewProduct.id = nanoid()
     AddNewProduct.create_at = new Date().toISOString()
+
+    // Helper function to ensure the directory exists
+    async function ensureDirectoryExists(dirPath) {
+        try {
+            await fs.promises.access(dirPath, fs.constants.F_OK);
+        } catch (e) {
+            console.log(`Directory not found, creating: ${dirPath}`);
+            try {
+                await fs.promises.mkdir(dirPath, { recursive: true });
+                console.log(`Directory created: ${dirPath}`);
+            } catch (mkdirErr) {
+                console.error(`Error creating directory: ${mkdirErr}`);
+                throw mkdirErr; // Re-throw to handle upstream
+            }
+        }
+    }
+
     async function processImage(image, suffix) {
         const extension = image.name.replace(/\s+/g, '').split('.').pop();
         const fileName = `${AddNewProduct.name.replace(/\s+/g, '')}_${suffix}.${extension}`;
-        const filePath = path.join('public', 'images', AddNewProduct.category, fileName);
-        console.log("🚀 ~ processImage ~ filePath:", filePath)
+        const dirPath = path.join('public', 'images', AddNewProduct.category, AddNewProduct.name.replace(/\s+/g, ''));
+        const filePath = path.join(dirPath, fileName);
 
+        ensureDirectoryExists(dirPath)
         // Create a write stream for the file
         const stream = fs.createWriteStream(filePath);
         const bufferedImage = await image.arrayBuffer()

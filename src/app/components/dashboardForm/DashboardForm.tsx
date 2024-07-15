@@ -1,8 +1,26 @@
 import ImagePicker from '@/app/components/dashboardForm/ImagePicker';
 import { AddProductAction } from '@/lib/action';
+import { FC } from 'react';
+
+interface NumberSelctionProps {
+    name: string,
+    number: number
+}
+
+export const NumberSelction: FC<NumberSelctionProps> = ({ name, number }) => {
+    const options = []
+    for (let i = 1; i <= number; i++) {
+        options.push(<option key={i} value={i}>{i}</option>)
+    }
+    return (
+        <select name={name} id={name} className="bg-gray-200 w-full rounded-md border-0 py-1 pl-7 pr-20 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
+            {options}
+        </select>
+    )
+}
+
 
 export default function DashboardForm() {
-
 
     return (
         <>
@@ -16,31 +34,52 @@ export default function DashboardForm() {
                         <div>
                             <p className="flex items-end gap-2">
                                 <label className="text-xl" htmlFor="name">Name: </label>
-                                <input className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" id="name" name="name" required />
+                                <input className="block w-full rounded-md border-0 py-1 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    required
+                                />
                             </p>
                         </div>
                         <div className="flex flex-row gap-2">
                             <p className="flex items-end gap-2">
                                 <label className="text-xl" htmlFor="price">Price: </label>
-                                <input className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="number" id="price" name="price" required />
+                                <input className="block w-full rounded-md border-0 py-1 pl-7 pr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    type="number"
+                                    min="1"
+                                    max="10"
+                                    id="price"
+                                    name="price"
+                                    required
+                                />
                             </p>
                             <p className="flex items-end gap-2">
                                 <label className="text-xl" htmlFor="stock">Stock: </label>
-                                <input className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="number" id="stock" name="stock" required />
+                                <NumberSelction name="stock" number={10} />
                             </p>
                         </div>
                         <p className="flex items-end gap-2">
                             <label className="text-xl" htmlFor="category">Category: </label>
-                            <input className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" id="category" name="category" required />
+                            <select id="category" name="category" className="bg-gray-200 w-full rounded-md border-0 py-1 pl-7 pr-20">
+                                <option value="earring">earring</option>
+                                <option value="necklace">necklace</option>
+                                <option value="bracelet">bracelet</option>
+                            </select>
                         </p>
                         <p className="flex items-end gap-2">
                             <label className="text-xl flex-shrink-0" htmlFor="color">Color Introduction: </label>
-                            <input className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" type="text" id="color" name="color" required />
+                            <input className="block w-full rounded-md border-0 py-1 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                type="text"
+                                id="color"
+                                name="color"
+                                required
+                            />
                         </p>
                         <p className="flex flex-col items-start gap-2">
                             <label className="text-xl" htmlFor="discription">Discription: </label>
                             <textarea
-                                className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300"
+                                className="block w-full rounded-md border-0 py-1 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300"
                                 id="discription"
                                 name="discription"
                                 required

@@ -63,7 +63,7 @@ const ImagePicker: FC<ImagePickerProps> = ({ label, name }) => {
                             </div>}
                         {pickedImage && (
                             <Image
-                                className="object-contain"
+                                className="object-cover"
                                 src={pickedImage}
                                 alt='The image selected by the user.'
                                 fill
