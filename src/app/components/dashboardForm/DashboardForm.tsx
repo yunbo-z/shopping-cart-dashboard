@@ -77,11 +77,20 @@ export default function DashboardForm() {
                             />
                         </p>
                         <p className="flex flex-col items-start gap-2">
-                            <label className="text-xl" htmlFor="description">Description: </label>
+                            <label className="text-xl" htmlFor="simple_description">Simple Description: </label>
                             <textarea
                                 className="block w-full rounded-md border-0 py-1 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300"
-                                id="description"
-                                name="description"
+                                id="simple_description"
+                                name="simple_description"
+                                required
+                            ></textarea>
+                        </p>
+                        <p className="flex flex-col items-start gap-2">
+                            <label className="text-xl" htmlFor="detailed_description">Detailed Description: </label>
+                            <textarea
+                                className="block w-full rounded-md border-0 py-1 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300"
+                                id="detailed_description"
+                                name="detailed_description"
                                 required
                             ></textarea>
                         </p>

@@ -7,7 +7,7 @@ import { FC, useState } from "react"
 
 interface ProductItemsProps {
     title: string,
-    functionIntro: string,
+    simpleDescription: string,
     price: string,
     classSlug:string,
     ProductsDetailsSlug: string,
@@ -16,7 +16,7 @@ interface ProductItemsProps {
 }
 
 
-const ProductItems: FC<ProductItemsProps> = ({ title, functionIntro, price, classSlug, ProductsDetailsSlug, itemAmount, updateCartItem }) => {
+const ProductItems: FC<ProductItemsProps> = ({ title, simpleDescription, price, classSlug, ProductsDetailsSlug, itemAmount, updateCartItem }) => {
 
     const [isHover, setIsHover] = useState(false)
     const handleMouseHover = () => {
@@ -36,8 +36,8 @@ const ProductItems: FC<ProductItemsProps> = ({ title, functionIntro, price, clas
                     <Link href={`${classSlug}/${ProductsDetailsSlug}`}><Image onMouseEnter={handleMouseHover} onMouseLeave={handleMouseHover} sizes="100vw" className="object-cover cursor-pointer max-w-fit place-self-center" alt="product picture" src={isHover ? earringTwo : earringOne} fill /></Link>
                 </div>
                 <div className="">
-                    <p className="text-base md:text-xl font-bold text-center">{title}</p>
-                    <p className="text-sm md:text-base text-center">{functionIntro}</p>
+                    <p className="text-base md:text-xl font-bold text-center mt-4">{title}</p>
+                    <p className="text-sm md:text-base text-center">{simpleDescription}</p>
                     <p className="text-sm md:text-base font-semibold text-center">{price}€</p>
                 </div>
             </header>

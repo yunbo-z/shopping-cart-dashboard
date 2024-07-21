@@ -8,7 +8,6 @@ interface CounterButtonProp {
 }
 
 const CounterButton: FC<CounterButtonProp> = ({ id, title, price }) => {
-    console.log("title: ",title)
     const [number, setNumber] = useState(0)
     useEffect(() => {
         // productInfoFromStorage is an array of objects

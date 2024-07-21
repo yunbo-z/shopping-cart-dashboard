@@ -54,7 +54,7 @@ const ShoppingCartItemBlock: FC<ShoppingCartItemBlockProps> = ({ productsId, pro
                     </div>
                 </div>
                 <div className="grid-cols-1 xl:col-span-2 pl-7">
-                    <div className="text-sm md:text-xl">{productsName}</div>
+                    <div className="text-sm md:text-xl font-bold">{productsName}</div>
                     <div className="text-sm md:text-xl">{unitPrice}€</div>
                 </div>
                 <div className="col-span-1 grid justify-items-end md:justify-items-start">

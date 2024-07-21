@@ -8,7 +8,7 @@ export default async function ShopPage(){
     return(
         <div className="flex flex-col justify-center items-center">
             <ProductsIntro />
-            <ProductGrid meals={products}></ProductGrid>
+            <ProductGrid products={products}></ProductGrid>
         </div>
     )
 }

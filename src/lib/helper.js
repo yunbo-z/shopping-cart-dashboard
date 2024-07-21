@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid'
-import { error } from 'node:console'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -9,10 +8,9 @@ dotenv.config()
 const apiUrl = process.env.API_URL
 
 export async function GetProducts() {
-    const res = await fetch(`${apiUrl}/api/products/`, {
+    const res = await fetch(`${apiUrl}/api/products`, {
         method: 'GET',
         headers: {
-            'Cache-Control': 'no-cache'// Ensures the request is not fulfilled from cache
         }
     })
     if (!res.ok) {
@@ -27,6 +25,7 @@ export async function GetProductById(id) {
     const res = await fetch(`${apiUrl}/api/product/${id}`, {
         method: 'GET',
         headers: {
+            'Cache-Control': 'no-cache'// Ensures the request is not fulfilled from cache
         }
     })
     if (!res.ok) {
@@ -73,7 +72,8 @@ export async function SaveNewProduct(AddNewProduct) {
                 throw new Error('Saving image failed!')
             }
         })
-        image = `/images/${fileName}`
+        image = `/images/${AddNewProduct.category}/${fileName}`
+        console.log("🚀 ~ processImage ~ image:", image)
     }
 
     // Process each image
@@ -81,4 +81,18 @@ export async function SaveNewProduct(AddNewProduct) {
     processImage(AddNewProduct.image_two, 'two');
     processImage(AddNewProduct.image_three, 'three');
 
+    const res = await fetch(`${apiUrl}/api/products`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(AddNewProduct)
+    })
+    if (!res.ok) {
+        throw new Error('Failed to create new products')
+    }
+
+    const products = await res.json()
+    console.log("🚀 ~ SaveNewProduct ~ products:", products)
+    return products
 }
