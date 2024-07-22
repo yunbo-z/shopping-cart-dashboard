@@ -8,7 +8,7 @@ dotenv.config()
 const apiUrl = process.env.API_URL
 
 export async function GetProducts() {
-    const res = await fetch(`${apiUrl}/api/products`, {
+    const res = await fetch(`${apiUrl}/api/products/`, {
         method: 'GET',
         headers: {
         }
@@ -38,7 +38,7 @@ export async function GetProductById(id) {
 
 export async function SaveNewProduct(AddNewProduct) {
     AddNewProduct.id = nanoid()
-    AddNewProduct.create_at = new Date().toISOString()
+    AddNewProduct.created_at = new Date().toISOString()
 
     // Helper function to ensure the directory exists
     async function ensureDirectoryExists(dirPath) {
@@ -72,24 +72,33 @@ export async function SaveNewProduct(AddNewProduct) {
                 throw new Error('Saving image failed!')
             }
         })
-        image = `/images/${AddNewProduct.category}/${fileName}`
-        console.log("🚀 ~ processImage ~ image:", image)
+        return `/images/${AddNewProduct.category}/${fileName}`
     }
 
-    // Process each image
-    processImage(AddNewProduct.image_one, 'one');
-    processImage(AddNewProduct.image_two, 'two');
-    processImage(AddNewProduct.image_three, 'three');
+    // Process all images concurrently
+    const imagePaths = await Promise.all([
+        processImage(AddNewProduct.image_one, 'one'),
+        processImage(AddNewProduct.image_two, 'two'),
+        processImage(AddNewProduct.image_three, 'three')
+    ]);
+    console.log("🚀 ~ SaveNewProduct ~ imagePaths:", imagePaths)
+    AddNewProduct.image_one = imagePaths[0];
+    AddNewProduct.image_two = imagePaths[1];
+    AddNewProduct.image_three = imagePaths[2];
+
+
+    console.log("🚀 ~ ----------------------------\nSaveNewProduct ~ AddNewProduct:", AddNewProduct)
 
     const res = await fetch(`${apiUrl}/api/products`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(AddNewProduct)
+        
+        body:JSON.stringify(AddNewProduct)
     })
     if (!res.ok) {
-        throw new Error('Failed to create new products')
+        console.log(res)
     }
 
     const products = await res.json()

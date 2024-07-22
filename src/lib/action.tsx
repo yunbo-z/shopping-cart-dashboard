@@ -17,5 +17,4 @@ export async function AddProductAction (formData: { get: (arg0: string) => any }
         image_three: formData.get('image_three')
     }
     SaveNewProduct(AddNewProduct)
-    console.log("🚀 ~ AddProductAction ~ AddNewProduct:", AddNewProduct)
 }

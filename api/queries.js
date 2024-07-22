@@ -14,13 +14,11 @@ const getProducts = (req, res) => {
         if (err) {
             throw err
         }
-        console.log("🚀 ~ pool.query ~ results.rowsggg:", results.rows)
         res.status(200).json(results.rows)
     })
 }
 const getProductById = (req, res) => {
     const _id = req.params.id
-    console.log("🚀 ~ getProductById ~ _id:", _id);
     pool.query(`SELECT * FROM products WHERE id='${_id}'`, (err, results) => {
         if (err) {
             throw err
@@ -30,12 +28,12 @@ const getProductById = (req, res) => {
 }
 
 const CreateProducts = (req, res) => {
-    const {
+    const newProduct =  {
         id,
         category,
-        image_path_one,
-        image_path_two,
-        image_path_three,
+        image_one,
+        image_two,
+        image_three,
         status,
         name,
         simple_description,
@@ -56,28 +54,30 @@ const CreateProducts = (req, res) => {
     `;
 
     const values = [
-        id,
-        category,
-        image_path_one,
-        image_path_two,
-        image_path_three,
-        status,
-        name,
-        simple_description,
-        detailed_description,
-        color,
-        price,
-        stock,
-        created_at,
-        modified_at
+        newProduct.id,
+        newProduct.category,
+        newProduct.image_one,
+        newProduct.image_two,
+        newProduct.image_three,
+        newProduct.status,
+        newProduct.name,
+        newProduct.simple_description,
+        newProduct.detailed_description,
+        newProduct.color,
+        newProduct.price,
+        newProduct.stock,
+        newProduct.created_at,
+        newProduct.modified_at
     ];
 
     pool.query(query, values, (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);
-            res.status(500).send("An error occurred!");
+            res.status(500).json({"error":"An error occurred!"});
         } else {
-            res.status(201).send(`Product added with ID ${result.rows[0].id}`);
+            res.status(201).json({
+                "msg": "product send successfully with ID",
+                "id": result.rows[0].id});
         }
     });
 }

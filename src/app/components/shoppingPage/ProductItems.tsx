@@ -9,7 +9,7 @@ interface ProductItemsProps {
     title: string,
     simpleDescription: string,
     price: string,
-    classSlug:string,
+    classSlug: string,
     ProductsDetailsSlug: string,
     itemAmount: number,
     updateCartItem: any
@@ -33,7 +33,16 @@ const ProductItems: FC<ProductItemsProps> = ({ title, simpleDescription, price, 
         <article className="flex flex-col justify-between h-full">
             <header>
                 <div className="h-72 relative">
-                    <Link href={`${classSlug}/${ProductsDetailsSlug}`}><Image onMouseEnter={handleMouseHover} onMouseLeave={handleMouseHover} sizes="100vw" className="object-cover cursor-pointer max-w-fit place-self-center" alt="product picture" src={isHover ? earringTwo : earringOne} fill /></Link>
+                    <Link href={`${classSlug}/${ProductsDetailsSlug}`}>
+                        <Image
+                            onMouseEnter={handleMouseHover}
+                            onMouseLeave={handleMouseHover}
+                            sizes="100vw"
+                            className="object-cover cursor-pointer max-w-fit place-self-center"
+                            alt="product picture"
+                            src={isHover ? earringTwo : earringOne} fill
+                        />
+                    </Link>
                 </div>
                 <div className="">
                     <p className="text-base md:text-xl font-bold text-center mt-4">{title}</p>
