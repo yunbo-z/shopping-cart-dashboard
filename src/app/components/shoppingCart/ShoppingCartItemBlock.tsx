@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import img from "@/img/Earring-01-1.jpg"
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 
 interface ShoppingCartItemBlockProps {
     productsId: string,

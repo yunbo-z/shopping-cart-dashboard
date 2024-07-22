@@ -10,7 +10,7 @@ const pool = new Pool({
     port: process.env.DB_PORT
 })
 const getProducts = (req, res) => {
-    pool.query('SELECT * FROM products ORDER BY id ASC', (err, results) => {
+    pool.query("SELECT * FROM products ORDER BY created_at DESC", (err, results) => {
         if (err) {
             throw err
         }
@@ -27,8 +27,35 @@ const getProductById = (req, res) => {
     })
 }
 
+const GetEarrings = (req, res) => {
+    pool.query("SELECT * FROM public.products WHERE category='earring' ORDER BY created_at DESC", (err, results) => {
+        if (err) {
+            throw err
+        }
+        res.status(200).json(results.rows)
+    })
+}
+
+const GetNecklaces = (req, res) => {
+    pool.query("SELECT * FROM public.products WHERE category='necklace' ORDER BY created_at DESC", (err, results) => {
+        if (err) {
+            throw err
+        }
+        res.status(200).json(results.rows)
+    })
+}
+
+const GetBracelets = (req, res) => {
+    pool.query("SELECT * FROM public.products WHERE category='bracelet' ORDER BY created_at DESC", (err, results) => {
+        if (err) {
+            throw err
+        }
+        res.status(200).json(results.rows)
+    })
+}
+
 const CreateProducts = (req, res) => {
-    const newProduct =  {
+    const newProduct = {
         id,
         category,
         image_one,
@@ -73,17 +100,18 @@ const CreateProducts = (req, res) => {
     pool.query(query, values, (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);
-            res.status(500).json({"error":"An error occurred!"});
+            res.status(500).json({ "error": "An error occurred!" });
         } else {
             res.status(201).json({
                 "msg": "product send successfully with ID",
-                "id": result.rows[0].id});
+                "id": result.rows[0].id
+            });
         }
     });
 }
 
 
-module.exports = { getProducts, CreateProducts, getProductById }
+module.exports = { getProducts, GetEarrings, GetNecklaces, GetBracelets, CreateProducts, getProductById }
 
 
 //  {

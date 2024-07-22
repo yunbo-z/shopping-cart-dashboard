@@ -21,6 +21,48 @@ export async function GetProducts() {
     return products
 }
 
+export async function GetEarrings() {
+    const res = await fetch(`${apiUrl}/api/product/earrings?t=${new Date().getTime()}`, {
+        method: 'GET',
+        headers: {
+        }
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch news')
+    }
+
+    const getEarrings = await res.json()
+    return getEarrings
+}
+
+export async function GetNecklaces() {
+    const res = await fetch(`${apiUrl}/api/product/necklaces?t=${new Date().getTime()}`, {
+        method: 'GET',
+        headers: {
+        }
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch news')
+    }
+
+    const getEarrings = await res.json()
+    return getEarrings
+}
+
+export async function GetBracelets() {
+    const res = await fetch(`${apiUrl}/api/product/bracelets?t=${new Date().getTime()}`, {
+        method: 'GET',
+        headers: {
+        }
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch news')
+    }
+
+    const getEarrings = await res.json()
+    return getEarrings
+}
+
 export async function GetProductById(id) {
     const res = await fetch(`${apiUrl}/api/product/${id}`, {
         method: 'GET',

@@ -17,6 +17,9 @@ app.get('/api', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 app.get('/api/products/', db.getProducts)
+app.get('/api/product/earrings', db.GetEarrings)
+app.get('/api/product/necklaces', db.GetNecklaces)
+app.get('/api/product/bracelets', db.GetBracelets)
 app.get('/api/product/:id', db.getProductById)
 app.post('/api/products', db.CreateProducts)
 
