@@ -4,6 +4,5 @@ const navItems = [
     { key: '3', path: "/earrings", text: "EARRINGS" },
     { key: '4', path: "/necklaces", text: "NECKLACES" },
     { key: '5', path: "/bracelets", text: "BRACELETS" },
-    { key: '6', path: "/rings", text: "RINGS" },
 ]
 export default navItems
