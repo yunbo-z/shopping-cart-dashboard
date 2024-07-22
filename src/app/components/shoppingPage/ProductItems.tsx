@@ -1,8 +1,6 @@
 'use client'
 import Image from "next/image"
 import Link from "next/link"
-import earringOne from "@/img/Earring-01-1.jpg"
-import earringTwo from "@/img/Earring-01-3.jpg"
 import { FC, useState } from "react"
 
 interface ProductItemsProps {
@@ -12,11 +10,25 @@ interface ProductItemsProps {
     classSlug: string,
     ProductsDetailsSlug: string,
     itemAmount: number,
-    updateCartItem: any
+    updateCartItem: any,
+    image_one: string,
+    image_two: string,
+    image_three: string
 }
 
 
-const ProductItems: FC<ProductItemsProps> = ({ title, simpleDescription, price, classSlug, ProductsDetailsSlug, itemAmount, updateCartItem }) => {
+const ProductItems: FC<ProductItemsProps> = ({
+    title,
+    simpleDescription,
+    price,
+    classSlug,
+    ProductsDetailsSlug,
+    itemAmount,
+    updateCartItem,
+    image_one,
+    image_two,
+    image_three
+}) => {
 
     const [isHover, setIsHover] = useState(false)
     const handleMouseHover = () => {
@@ -35,12 +47,13 @@ const ProductItems: FC<ProductItemsProps> = ({ title, simpleDescription, price, 
                 <div className="h-72 relative">
                     <Link href={`${classSlug}/${ProductsDetailsSlug}`}>
                         <Image
+                            priority
                             onMouseEnter={handleMouseHover}
                             onMouseLeave={handleMouseHover}
                             sizes="100vw"
                             className="object-cover cursor-pointer max-w-fit place-self-center"
                             alt="product picture"
-                            src={isHover ? earringTwo : earringOne} fill
+                            src={isHover ? image_two : image_one} fill
                         />
                     </Link>
                 </div>

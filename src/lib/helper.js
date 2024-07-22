@@ -8,7 +8,7 @@ dotenv.config()
 const apiUrl = process.env.API_URL
 
 export async function GetProducts() {
-    const res = await fetch(`${apiUrl}/api/products/`, {
+    const res = await fetch(`${apiUrl}/api/products?t=${new Date().getTime()}`, {
         method: 'GET',
         headers: {
         }
@@ -62,7 +62,9 @@ export async function SaveNewProduct(AddNewProduct) {
         const dirPath = path.join('public', 'images', AddNewProduct.category, AddNewProduct.name.replace(/\s+/g, ''));
         const filePath = path.join(dirPath, fileName);
 
-        ensureDirectoryExists(dirPath)
+        
+        await ensureDirectoryExists(dirPath)
+     
         // Create a write stream for the file
         const stream = fs.createWriteStream(filePath);
         const bufferedImage = await image.arrayBuffer()
@@ -72,7 +74,7 @@ export async function SaveNewProduct(AddNewProduct) {
                 throw new Error('Saving image failed!')
             }
         })
-        return `/images/${AddNewProduct.category}/${fileName}`
+        return `/images/${AddNewProduct.category}/${AddNewProduct.name.replace(/\s+/g, '')}/${fileName}`
     }
 
     // Process all images concurrently
@@ -85,9 +87,6 @@ export async function SaveNewProduct(AddNewProduct) {
     AddNewProduct.image_one = imagePaths[0];
     AddNewProduct.image_two = imagePaths[1];
     AddNewProduct.image_three = imagePaths[2];
-
-
-    console.log("🚀 ~ ----------------------------\nSaveNewProduct ~ AddNewProduct:", AddNewProduct)
 
     const res = await fetch(`${apiUrl}/api/products`, {
         method: 'POST',

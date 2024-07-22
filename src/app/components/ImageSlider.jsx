@@ -23,7 +23,7 @@ const ImageSlider = ({ src1, src2, src3 }) => {
             </button>
             {images.map((src, index) => (
                 <div key={index} className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${index === activeIndex ? 'opacity-100' : 'opacity-0'}`}>
-                    <Image className="object-contain w-full h-full" src={src} alt={`Image ${index + 1}`} sizes="100vw" fill />
+                    <Image priority className="object-contain w-full h-full" src={src} alt={`Image ${index + 1}`} sizes="100vw" fill />
                 </div>
             ))}
         </div>

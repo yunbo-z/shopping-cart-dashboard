@@ -41,7 +41,12 @@ const ProductGrid: FC<ProductGridProps> = ({ products }) => {
             // Assuming products have all necessary product details
             const product = products.find(m => m.id === ProductsDetailsSlug);
             if (product) {
-                updatedCartItems.push({ id: product.id, title: product.name, price: product.price, amount: amount });
+                updatedCartItems.push({
+                    id: product.id,
+                    title: product.name,
+                    price: product.price,
+                    amount: amount,
+                });
             }
         }
 
@@ -58,7 +63,11 @@ const ProductGrid: FC<ProductGridProps> = ({ products }) => {
                         classSlug={pathName}
                         ProductsDetailsSlug={product.id}
                         itemAmount={productToSessionInfo.find(item => item.id === product.id)?.amount || 0}
-                        updateCartItem={updateProductToSession} />
+                        updateCartItem={updateProductToSession}
+                        image_one={product.image_path_one}
+                        image_two={product.image_path_two}
+                        image_three={product.image_path_three}
+                    />
                 </li>
             )}
         </ul>
