@@ -66,7 +66,6 @@ const ProductGrid: FC<ProductGridProps> = ({ products }) => {
                         updateCartItem={updateProductToSession}
                         image_one={product.image_path_one}
                         image_two={product.image_path_two}
-                        image_three={product.image_path_three}
                     />
                 </li>
             )}

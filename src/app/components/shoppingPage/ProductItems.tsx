@@ -13,7 +13,6 @@ interface ProductItemsProps {
     updateCartItem: any,
     image_one: string,
     image_two: string,
-    image_three: string
 }
 
 
@@ -27,7 +26,6 @@ const ProductItems: FC<ProductItemsProps> = ({
     updateCartItem,
     image_one,
     image_two,
-    image_three
 }) => {
 
     const [isHover, setIsHover] = useState(false)
