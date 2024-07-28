@@ -13,6 +13,7 @@ interface ProductItemsProps {
     updateCartItem: any,
     image_one: string,
     image_two: string,
+    handleDeleteItem: any
 }
 
 
@@ -26,6 +27,7 @@ const ProductItems: FC<ProductItemsProps> = ({
     updateCartItem,
     image_one,
     image_two,
+    handleDeleteItem
 }) => {
 
     const [isHover, setIsHover] = useState(false)
@@ -38,6 +40,11 @@ const ProductItems: FC<ProductItemsProps> = ({
     }
     const handleReduceItemAmount = () => {
         updateCartItem(ProductsDetailsSlug, itemAmount - 1)
+    }
+    const handleDeleteData = () => {
+        handleDeleteItem(ProductsDetailsSlug)
+        console.log(`Delete the product: ${ProductsDetailsSlug}`)
+        location.reload()
     }
     return (
         <article className="flex flex-col justify-between h-full">
@@ -72,6 +79,7 @@ const ProductItems: FC<ProductItemsProps> = ({
                     :
                     <button className="text-sm md:text-base" onClick={handleAddItemAmount}>Add to Cart &rarr;</button>}
             </div>
+            <div className="text-center text-2xl bg-red-200 cursor-pointer" onClick={handleDeleteData}>x</div>
         </article>
     )
 }

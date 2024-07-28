@@ -74,8 +74,23 @@ export async function GetProductById(id) {
         throw new Error('Failed to fetch news')
     }
 
-    const products = await res.json()
-    return products
+    const product = await res.json()
+    return product
+}
+
+export async function DeleteProductById(id) {
+    const res = await fetch(`${apiUrl}/api/product/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Cache-Control': 'no-cache'// Ensures the request is not fulfilled from cache
+        }
+    })
+    if (!res.ok) {
+        throw new Error('Failed to fetch news')
+    }
+
+    const deletedProducts = await res.json()
+    return deletedProducts
 }
 
 export async function SaveNewProduct(AddNewProduct) {

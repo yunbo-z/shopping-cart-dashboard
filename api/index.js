@@ -22,6 +22,7 @@ app.get('/api/product/necklaces', db.GetNecklaces)
 app.get('/api/product/bracelets', db.GetBracelets)
 app.get('/api/product/:id', db.getProductById)
 app.post('/api/products', db.CreateProducts)
+app.delete('/api/product/:id', db.deleteProductById)
 
 app.listen(port, () => {
     console.log(api_host)

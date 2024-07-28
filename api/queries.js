@@ -110,8 +110,18 @@ const CreateProducts = (req, res) => {
     });
 }
 
+const deleteProductById = (req, res) => {
+    const _id = req.params.id
+    pool.query(`DELETE FROM products WHERE id='${_id}'`, (err, results) => {
+        if (err) {
+            throw err
+        }
+        res.status(200).json(results.rows)
+    })
+}
 
-module.exports = { getProducts, GetEarrings, GetNecklaces, GetBracelets, CreateProducts, getProductById }
+
+module.exports = { getProducts, GetEarrings, GetNecklaces, GetBracelets, CreateProducts, getProductById, deleteProductById }
 
 
 //  {

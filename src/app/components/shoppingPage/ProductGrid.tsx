@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 
 interface ProductGridProps {
     products: Array<any>
+    handleDeleteItem: any
 }
 
 type productToCartInfo = {
@@ -15,7 +16,7 @@ type productToCartInfo = {
     amount: number
 }
 
-const ProductGrid: FC<ProductGridProps> = ({ products }) => {
+const ProductGrid: FC<ProductGridProps> = ({ products, handleDeleteItem }) => {
     const pathName = usePathname()
 
     const [productToSessionInfo, setProductToSessionInfo] = useState<productToCartInfo[]>(() => {
@@ -66,6 +67,7 @@ const ProductGrid: FC<ProductGridProps> = ({ products }) => {
                         updateCartItem={updateProductToSession}
                         image_one={product.image_path_one}
                         image_two={product.image_path_two}
+                        handleDeleteItem={handleDeleteItem}
                     />
                 </li>
             )}
