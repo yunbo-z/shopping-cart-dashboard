@@ -6,6 +6,9 @@ interface NumberSelctionProps {
     name: string,
     number: number
 }
+interface DashboardFormProps {
+    handleGoBack: any
+}
 
 export const NumberSelction: FC<NumberSelctionProps> = ({ name, number }) => {
     const options = []
@@ -20,7 +23,7 @@ export const NumberSelction: FC<NumberSelctionProps> = ({ name, number }) => {
 }
 
 
-export default function DashboardForm() {
+export default function DashboardForm({ handleGoBack }: DashboardFormProps) {
 
     return (
         <>
@@ -101,7 +104,7 @@ export default function DashboardForm() {
                         <ImagePicker label="Image Three" name="image_three" />
                     </div>
                     <div className="flex justify-center mt-4">
-                        <button className="bg-red-200 px-4 py-2" type="submit">Create a New Product</button>
+                        <button className="bg-red-200 px-4 py-2" type="submit" onClick={handleGoBack}>Create a New Product</button>
                     </div>
                 </form>
             </main>

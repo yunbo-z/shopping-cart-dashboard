@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import ShoppingCartItemBlock from "./ShoppingCartItemBlock"
 
-const ShoppingCartForm = () => {
+const ShoppingCartForm = ({getProductInfoById}: any) => {
     const [productInfoFromStorage, setProductInfoFromStorage] = useState('')
     useEffect(() => {
         // productInfoFromStorage is an array of objects
@@ -47,7 +47,15 @@ const ShoppingCartForm = () => {
             <div>
                 <div className="pr-5">
                     {newProjectInfoObj.map((product: { id: any; title: any; price: any; amount: any }) => (
-                        <ShoppingCartItemBlock productsName={product.title} unitPrice={product.price} addedItemAmount={product.amount} productsId={product.id} handleUpdateAmount={updateProductToSession} shoppingCartUpdatedCartItems={productInfoFromStorage} handleRemoveProduct={removeProductFromSession}></ShoppingCartItemBlock>
+                        <ShoppingCartItemBlock
+                            productsName={product.title}
+                            unitPrice={product.price}
+                            addedItemAmount={product.amount}
+                            productsId={product.id}
+                            handleUpdateAmount={updateProductToSession}
+                            handleRemoveProduct={removeProductFromSession}
+                            getProductInfoById={getProductInfoById}
+                        ></ShoppingCartItemBlock>
                     ))}
                 </div>
             </div>

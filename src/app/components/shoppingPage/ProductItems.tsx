@@ -7,7 +7,6 @@ interface ProductItemsProps {
     title: string,
     simpleDescription: string,
     price: string,
-    classSlug: string,
     ProductsDetailsSlug: string,
     itemAmount: number,
     updateCartItem: any,
@@ -21,7 +20,6 @@ const ProductItems: FC<ProductItemsProps> = ({
     title,
     simpleDescription,
     price,
-    classSlug,
     ProductsDetailsSlug,
     itemAmount,
     updateCartItem,
@@ -50,7 +48,7 @@ const ProductItems: FC<ProductItemsProps> = ({
         <article className="flex flex-col justify-between h-full">
             <header>
                 <div className="h-72 relative">
-                    <Link href={`${classSlug}/${ProductsDetailsSlug}`}>
+                    <Link href={`/allproducts/${ProductsDetailsSlug}`}>
                         <Image
                             priority
                             onMouseEnter={handleMouseHover}

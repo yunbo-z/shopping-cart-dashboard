@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useState } from "react"
 import ProductItems from "./ProductItems"
-import { usePathname } from "next/navigation"
 
 interface ProductGridProps {
     products: Array<any>
@@ -17,7 +16,6 @@ type productToCartInfo = {
 }
 
 const ProductGrid: FC<ProductGridProps> = ({ products, handleDeleteItem }) => {
-    const pathName = usePathname()
 
     const [productToSessionInfo, setProductToSessionInfo] = useState<productToCartInfo[]>(() => {
         const savedCartInfo = sessionStorage.getItem('productToCartInfo');
@@ -61,7 +59,6 @@ const ProductGrid: FC<ProductGridProps> = ({ products, handleDeleteItem }) => {
                         title={product.name}
                         simpleDescription={product.simple_description}
                         price={product.price}
-                        classSlug={pathName}
                         ProductsDetailsSlug={product.id}
                         itemAmount={productToSessionInfo.find(item => item.id === product.id)?.amount || 0}
                         updateCartItem={updateProductToSession}

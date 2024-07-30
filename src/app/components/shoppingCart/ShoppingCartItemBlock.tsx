@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import img from "@/img/Earring-01-1.jpg"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 
 interface ShoppingCartItemBlockProps {
     productsId: string,
@@ -10,17 +10,34 @@ interface ShoppingCartItemBlockProps {
     unitPrice: number,
     addedItemAmount: number,
     handleUpdateAmount: any,
-    shoppingCartUpdatedCartItems:any,
     handleRemoveProduct: any
+    getProductInfoById: any
 }
 
-const ShoppingCartItemBlock: FC<ShoppingCartItemBlockProps> = ({ productsId, productsName, unitPrice, addedItemAmount, handleUpdateAmount, shoppingCartUpdatedCartItems, handleRemoveProduct }) => {
+const ShoppingCartItemBlock: FC<ShoppingCartItemBlockProps> = ({ productsId, productsName, unitPrice, addedItemAmount, handleUpdateAmount, handleRemoveProduct, getProductInfoById }) => {
+    const [productImgPath, setProductImgPath] = useState('');
+    useEffect(() => {
+        if (productsId) {  // Ensure there's a valid productsId
+            const fetchProductInfo = async () => {
+                try {
+                    const productInfo = await getProductInfoById(productsId);
+                    const productImgPath = productInfo[0].image_path_one
+                    setProductImgPath(productImgPath)
+                } catch (error) {
+                    console.error("Failed to fetch product info:", error);
+                }
+            };
+
+            fetchProductInfo();
+        }
+    }, [productsId, getProductInfoById]);
+
     const [selectMenuItemAmount, setSelectMenuItemAmount] = useState(addedItemAmount)
     const options = []
     for (let i = 1; i <= 20; i++) {
         options.push(<option key={i} value={i}>{i}</option>)
     }
-    
+
     const handleSelectMenuAmountChange = (e: any) => {
         setSelectMenuItemAmount(e.target.value)
     }
@@ -50,7 +67,7 @@ const ShoppingCartItemBlock: FC<ShoppingCartItemBlockProps> = ({ productsId, pro
             <div className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-5 ">
                 <div className="grid col-span-1 h-24 md:h-44">
                     <div className="relative h-full w-full min-w-24 md:min-w-44 place-self-start">
-                        <Image className="object-contain" alt="productImg" src={img} sizes="100vw" fill></Image>
+                        <Image className="object-contain" alt="productImg" src={productImgPath} sizes="100vw" fill></Image>
                     </div>
                 </div>
                 <div className="grid-cols-1 xl:col-span-2 pl-7">
